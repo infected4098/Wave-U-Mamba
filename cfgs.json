@@ -1,7 +1,7 @@
 {
 
 "info": {
-  "project_name": "Audio Super Mamba Resolution",
+  "project_name": "WaveUMamba",
   "initial_work": "2024/05/09",
   "researchers": ["Yong Joon Lee", "Chan Woo Kim"],
   "seed": 1229},
@@ -10,12 +10,12 @@
   "batch_size": 64,
   "lr": 0.0002,
   "weight_decay": 0.999,
-  "num_workers": 16,
-  "n_gpu": 4,
+  "num_workers": 8,
+  "n_gpu": 2,
   "opt_eps": 1e-9,
-  "beta1": 0.8,
+  "beta1": 0.6,
   "beta2": 0.99,
-  "n_epoch": 100,
+  "n_epoch": 25,
   "checkpoint_interval": 2000,
   "summary_interval": 100,
   "validation_interval": 2000,
@@ -23,16 +23,16 @@
   "stdout_interval": 100},
 
   "data" : {
-    "dir": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11",
+    "dir": "/mamba_super_1/lib/python3.11",
     "format": "*mic1.pt",
-    "train_names": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/dataset_names/train-files.txt",
-    "val_names": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/dataset_names/val-files.txt",
-    "example_audio": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/VCTK-Corpus/wav48/p228/p228_003.wav",
-    "vis_save_path": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/imgs",
-    "ckpt_save_path": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/ckpts_ext",
-    "models_save_path": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/models",
-    "tensorboard_save_path": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/tensorboard",
-    "etc_save_path": "/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/etc"
+    "train_names": "/mamba_super_1/lib/python3.11/dataset_names/train-files.txt",
+    "val_names": "/mamba_super_1/lib/python3.11/dataset_names/val-files.txt",
+    "example_audio": "/mamba_super_1/lib/python3.11/VCTK-Corpus/wav48/p228/p228_003.wav",
+    "vis_save_path": "/mamba_super_1/lib/python3.11/imgs",
+    "ckpt_save_path": "/mamba_super_1/lib/python3.11/ckpts_ext",
+    "models_save_path": "/mamba_super_1/lib/python3.11/models",
+    "tensorboard_save_path": "/mamba_super_1/lib/python3.11/tensorboard",
+    "etc_save_path": "/mamba_super_1/lib/python3.11/etc"
   },
 
   "audio": {
@@ -54,17 +54,8 @@
   "cnn_stem_strides_1D": [2, 2, 2, 2, 2, 2],
   "cnn_stem_kernel_sizes_1D": [4, 4, 4, 4, 4, 4]},
 
-  "hifigan" : {
-  "upsample_rates": [2, 2, 2, 2, 2, 2],
-  "upsample_kernel_sizes": [4, 4, 4, 4, 8, 8],
-  "upsample_initial_channel": 768,
-  "resblock_kernel_sizes": [3, 7, 11],
-  "resblock_dilation_sizes": [[1, 3, 5], [1, 3, 5], [1, 3, 5]],
-  "ds_resblock_kernel_sizes": [3, 7, 11],
-  "ds_resblock_dilation_sizes": [[1, 3, 5], [1, 3, 5], [1, 3, 5]]},
-
   "mamba": {
-  "d_model": 768,
+  "d_model": 256,
   "d_state": 16,
   "d_conv": 4,
   "expand": 2,
