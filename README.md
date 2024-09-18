@@ -23,5 +23,18 @@ You can download the pretrained moidels we provide. <br/>
 
 ## Inference from wav file
 
+
+1. Please resample the Low-Resolution audio to make sure your Low-Resolution `.wav` file has sampling rate of 48 kHz.
+2. Please run the following command.
+
+```
+python inference_wav.py --wav_path [Low-Resolution wav path]
+--output_dir [Folder to save the HR audio wav files]
+--checkpoint_file [Downloaded checkpoint file path]
+--cfgs_path [cfgs file path]
+```
+
+
+
 ## Acknowledgements
 We especially thank [Sungbin Lim](https://www.sungbin-lim.net/) for sharing valuable insights and ideas on the draft. We referred to [HiFi-GAN](https://github.com/jik876/hifi-gan), [Mamba](https://github.com/state-spaces/mamba) and many other resources to implement this. 
