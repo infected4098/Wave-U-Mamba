@@ -118,10 +118,10 @@ def main():
     parser.add_argument('--wav_path', default=None)
     parser.add_argument('--output_dir', default='/outputdir')
     parser.add_argument('--checkpoint_file', default = '/generator.pt')
-    parser.add_argument('--ckpts_path', default='/ckpts.json')
+    parser.add_argument('--cfgs_path', default='/ckpts.json')
     a = parser.parse_args()
 
-    with open(a.ckpts_path, "r") as file:
+    with open(a.cfgs_path, "r") as file:
 
         json_config = json.load(file)
         h = AttrDict(json_config)
