@@ -12,7 +12,7 @@ An official documentation of the paper [&lt;Wave-U-Mamba:  An End-To-End Framewo
 Speech Super-Resolution (SSR) is a task of enhancing low-resolution speech signals by restoring missing high-frequency components. Conventional approaches typically reconstruct log-mel features, followed by a vocoder that generates high-resolution speech in the waveform domain. However, as log-mel features lack phase information, this can result in performance degradation during the reconstruction phase. Motivated by recent advances with Selective State Spaces Models (SSMs), we propose a method, referred to as Wave-U-Mamba that directly performs SSR in time domain. In our comparative study, including models such as WSRGlow, NU-Wave 2, and AudioSR, Wave-U-Mamba demonstrates superior performance, achieving the lowest Log-Spectral Distance (LSD) across various low-resolution sampling rates, ranging from 8 kHz to 24 kHz. Additionally, subjective human evaluations, scored using Mean Opinion Score (MOS) reveal that our method produces SSR with natural and human-like quality. Furthermore, Wave-U-Mamba achieves these results while generating high-resolution speech over nine times faster than baseline models on a single A100 GPU, with parameter sizes less than 2% of those in the baseline models.
 
 ## Prerequisites
-1. Clone this repository.
+1. Clone this repository and change the directory.
 ```
 git clone https://github.com/infected4098/Wave-U-Mamba.git
 cd Wave-U-Mamba
@@ -37,9 +37,9 @@ You can download the pretrained moidels we provide. <br/>
 2. Please run the following command.
 
 ```
-python inference_wav.py --wav_path [Low-Resolution wav path]
---output_dir [Folder to save the HR audio wav files]
---checkpoint_file [Downloaded checkpoint file path]
+python inference_wav.py --wav_path [Low-Resolution wav path] \
+--output_dir [Folder to save the HR audio wav files] \
+--checkpoint_file [Downloaded checkpoint file path] \
 --cfgs_path [cfgs file path]
 ```
 
