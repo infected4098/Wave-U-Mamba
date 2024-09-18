@@ -13,9 +13,16 @@ Speech Super-Resolution (SSR) is a task of enhancing low-resolution speech signa
 
 ## Prerequisites
 1. Clone this repository.
-2. Install python requirements. Please check [requirements.txt](requirements.txt).
-3. Download config file. Please check [cfgs](cfgs.json).
-4. Download the pretrained model. 
+```
+git clone https://github.com/infected4098/Wave-U-Mamba.git
+cd Wave-U-Mamba
+```
+3. Install python requirements. Please check [requirements.txt](requirements.txt).
+```
+pip install -r requirements.txt
+```
+5. Download config file. Please check [cfgs](cfgs.json).
+6. Download the pretrained model. 
 
 
 ## Pretrained Model
