@@ -71,7 +71,6 @@ def infer(a, cfg, type = 1):
     else:
         device = torch.device('cpu')
         
-    print("configurations initialized...")
     random.seed(cfg.info["seed"])
     generator = Generator(cfg.mamba).to(device)
     print("model initialized...")
@@ -85,8 +84,8 @@ def infer(a, cfg, type = 1):
     with torch.no_grad():
         
         prefix = a.wav_path[-7:-3]
-        y_low, sr_high = utils.load_audio(a.wav_path, sr = 48000)
-        y_low = utils.trim_or_pad(y_low, 128).to(device)
+        y_low, sr_low = utils.load_audio(a.wav_path, sr = 48000)
+        y_low = torch.FloatTensor(utils.trim_or_pad(y_low, 128)).to(device)
            
 
 
