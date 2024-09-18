@@ -4,7 +4,6 @@ numpy
 scipy
 wandb
 tqdm
-glob
 os
 einops
 mamba_ssm
