@@ -13,7 +13,9 @@ Speech Super-Resolution (SSR) is a task of enhancing low-resolution speech signa
 
 ## Prerequisites
 1. Clone this repository.
-2. Install python requirements. Please refer [requirements.txt](requirements.txt).
+2. Install python requirements. Please check [requirements.txt](requirements.txt).
+3. Download config file. Please check [cfgs](cfgs.json).
+4. Download the pretrained model. 
 
 
 ## Pretrained Model
