@@ -83,7 +83,6 @@ def infer(a, cfg, type = 1):
 
     with torch.no_grad():
         
-        prefix = a.wav_path[-7:-3]
         y_low, sr_low = utils.load_audio(a.wav_path, sr = 48000)
         y_low = torch.FloatTensor(utils.trim_or_pad(y_low, 128)).to(device)
            
@@ -99,7 +98,7 @@ def infer(a, cfg, type = 1):
         inf_time = end_time - start_time
         print(f"Inference took {inf_time} seconds")
 
-        output_file = os.path.join(a.output_dir, prefix + '_superresolved.wav')
+        output_file = os.path.join(a.output_dir, os.path.splitext(a.wav_path)[0] + '_superresolved.wav')
         write(output_file, cfg.audio["sr"], audio)
 
 
