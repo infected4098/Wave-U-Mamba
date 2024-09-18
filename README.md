@@ -43,6 +43,9 @@ python inference_wav.py --wav_path [Low-Resolution wav path] \
 --cfgs_path [cfgs file path]
 ```
 
+## Inference Demos
+
+We provide a [colab demo](https://colab.research.google.com/drive/11pGqWla4RVtZVAmdEJwKsrparnl4LVW4?usp=sharing) to show how the inference process works in a nutshell.
 
 
 ## Acknowledgements
