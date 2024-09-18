@@ -24,4 +24,4 @@ You can download the pretrained moidels we provide. <br/>
 ## Inference from wav file
 
 ## Acknowledgements
-We referred to [HiFi-GAN](https://github.com/jik876/hifi-gan), [Mamba](https://github.com/state-spaces/mamba) to implement this.
+We thank Sungbin Lim for sharing valuable insights and ideas on the draft. We referred to [HiFi-GAN](https://github.com/jik876/hifi-gan), [Mamba](https://github.com/state-spaces/mamba) and many other resources to implement this. 
