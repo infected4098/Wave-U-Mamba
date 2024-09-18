@@ -296,23 +296,3 @@ class waveumamba(nn.Module):
         remove_weight_norm(self.conv_post)
 
 
-
-"""import json
-from env import AttrDict
-with (open("/home/prml/.virtualenvs/mamba_super_1/lib/python3.11/configs/cfgs.json", "r") as file):
-
-    json_config = json.load(file)
-    hyperparameters = AttrDict(json_config)
-    cfg = hyperparameters
-    cfg_embed = cfg.embed
-    cfg_mamba = cfg.mamba
-    #model = ConvMambaBlock_ds(384, 768, 3, 2, 2, cfg.mamba).to("cuda:0")
-    #model = MelFreeStemEmbedMamba(1, kernel_size = cfg_embed["cnn_stem_kernel_sizes_1D"],
-    #               embed_dim = cfg_embed["cnn_stem_channels_1D"], strides = cfg_embed["cnn_stem_strides_1D"], cfg_mamba = cfg_mamba).to("cuda:0")
-
-    generator = waveumamba(cfg.mamba).to("cuda:0")
-
-    input = torch.rand([2, 1, 25600]).to("cuda:0")
-    print(summarize_model(generator, [2, 1, 25600], is_cuda=True))
-    y = generator(input)
-    print(y.shape)"""
