@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 ## Pretrained Model
 
-You can download the pretrained moidels we provide. <br/>
+You can download the pretrained model we provide. <br/>
 [Download pretrained models](https://drive.google.com/file/d/1ljUMQHWil5w8moupWkapqkUOcGNN4x3e/view?usp=sharing)<br/> 
 
 ## Inference from wav file
