@@ -4,7 +4,6 @@ numpy
 scipy
 wandb
 tqdm
-os
 einops
 mamba_ssm
 argparse
