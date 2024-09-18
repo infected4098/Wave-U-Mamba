@@ -2,6 +2,7 @@ torch
 librosa
 numpy
 scipy
+torchinfo
 wandb
 tqdm
 einops
