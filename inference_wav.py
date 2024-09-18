@@ -75,7 +75,7 @@ def infer(a, cfg, type = 1):
     random.seed(cfg.info["seed"])
     generator = Generator(cfg.mamba).to(device)
     print("model initialized...")
-    state_dict_g = prefix_load_checkpoint(a.checkpoint_file, {'cuda:%d' % 0: 'cuda:%d' % 1})
+    state_dict_g = prefix_load_checkpoint(a.checkpoint_file, "cuda")
     print("checkpoint successfully loaded...")
     generator.load_state_dict(state_dict_g, strict= True)
     lsd_list = []
