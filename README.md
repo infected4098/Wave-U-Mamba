@@ -50,3 +50,10 @@ We provide a [colab demo](https://colab.research.google.com/drive/11pGqWla4RVtZV
 
 ## Acknowledgements
 We especially thank [Sungbin Lim](https://www.sungbin-lim.net/) for sharing valuable insights and ideas on the draft. We referred to [HiFi-GAN](https://github.com/jik876/hifi-gan), [Mamba](https://github.com/state-spaces/mamba) and many other resources to implement this. 
+
+## To-do
+
+1. Add demo website.
+2. Provide codes for training.
+3. Build an API.
+
