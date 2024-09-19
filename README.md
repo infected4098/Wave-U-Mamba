@@ -39,7 +39,7 @@ You can download the pretrained model we provide. <br/>
 ```
 python inference_wav.py --wav_path [Low-Resolution wav path] \
 --output_dir [Folder to save the HR audio wav files] \
---checkpoint_file [Downloaded checkpoint file path] \
+--checkpoint_file [Downloaded pretrained model file path] \
 --cfgs_path [cfgs file path]
 ```
 
