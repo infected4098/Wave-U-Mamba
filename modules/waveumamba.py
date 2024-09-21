@@ -8,6 +8,8 @@ from einops import rearrange
 from mamba_ssm import Mamba
 import einops
 from utils import init_weights, get_padding, summarize_model
+
+
 LRELU_SLOPE = 0.1
 
 class ResBlock(torch.nn.Module):
@@ -59,6 +61,7 @@ class MambaBlock(nn.Module):
 
 
 class Mambablocks(nn.Module):
+    # Add --> LN --> Mamba
     def __init__(self, out_channels, n_blocks, cfg_mamba):
         super(Mambablocks, self).__init__()
         self.out_channels = out_channels
@@ -118,12 +121,14 @@ class Downsampleblock(nn.Module):
             x = ln(x)
             x = F.leaky_relu(x, LRELU_SLOPE)
             x = resid + x
-        x = self.Avgpool(x)
+        x = self.Avgpool(x) # Exactly halving the sequence
         x = self.mambablocks(x)
         return x
 
 
 class Bottleneckblock(nn.Module):
+    # Bottleneckblock
+    # The same structure with Downsampleblock but without pooling.
     def __init__(self, in_channels, out_channels, kernel_size, downsample, n_conv, cfg_mamba, n_mambas = 3):
         super().__init__()
         # Hyperparameters
@@ -150,7 +155,6 @@ class Bottleneckblock(nn.Module):
         self.mambablocks = Mambablocks(self.out_channels, 3, cfg_mamba)
 
     def forward(self, x):
-        #desired_len = x.size(-1)//2
         x = F.pad(x, (0, 2))
         x = self.init_conv(x)
         x = self.init_ln(x)
@@ -173,9 +177,9 @@ class Downsamplestem(nn.Module):
         """
         audio_size = T * sr; temporal_frame_num
         in_channels = 1
-        kernel_size = [4, 4, 4, 4, 4, 4]
-        embed_dim = [16, 32, 64, 128, 256, 512]
-        strides = [2, 2, 2, 2, 2, 2]
+        kernel_size = [4, 4, 4, 4]
+        embed_dim = [32, 64, 128, 256]
+        strides = [2, 2, 2, 2]
         """
         super().__init__()
         # Hyperparameters
@@ -203,7 +207,8 @@ class Downsamplestem(nn.Module):
         self.ln_stem.append(LayerNorm(self.embed_dim[-1], (0, 2, 1)))
 
 
-    def forward(self, x): # [batch_size, 1, audio_size]
+    def forward(self, x): 
+        # [batch_size, 1, audio_size]
         res_lst = []
         res_lst.append(x)
         for i, (cnn, ln) in enumerate(zip(self.cnn_stem, self.ln_stem)):
@@ -219,7 +224,7 @@ class Downsamplestem(nn.Module):
 
 
 class waveumamba(nn.Module):
-    def __init__(self, cfg_mamba):  # (B, C, T) #cfg_embed = hparams.embed, cfg_hifigan = hparams.hifigan
+    def __init__(self, cfg_mamba):  # (B, C, T)
         super(waveumamba, self).__init__()
 
         # Downsampling
@@ -236,7 +241,7 @@ class waveumamba(nn.Module):
 
 
         for i, (u, k) in enumerate(zip([2, 2, 2, 2], [4, 4, 8, 8])):
-            # [[4, 8], [4, 8], [2, 4], [2, 4], [2, 4]]
+            # https://github.com/jik876/hifi-gan/blob/master/models.py
             self.ups.append(
                 weight_norm(ConvTranspose1d(256 // (2 ** i),
                                 256 // (2 ** (i + 1)),
@@ -251,7 +256,7 @@ class waveumamba(nn.Module):
         for i in range(len(self.ups)):
             ch = 256 // (2 ** (i + 1))
             for j, (k, d) in enumerate(zip([3],
-                                           [[1, 3]])):  # [[3, [1, 3, 5], [7, [1, 3, 5]. ...]]]
+                                           [[1, 3]])): 
                 self.resblocks.append(resblock(ch, k, d))
 
         # Weight Normalization
@@ -260,8 +265,8 @@ class waveumamba(nn.Module):
         self.conv_post.apply(init_weights)
 
     def forward(self, x):
-        x, res_lst = self.emb(x)  # [B, 1, sr*T] --> [B, embed_dim[-1], sr*T/prod(strides)]
-        res_lst = res_lst[::-1]
+        x, res_lst = self.emb(x)  # [B, 1, sr*T] --> [B, embed_dim[-1], sr*T/16]
+        res_lst = res_lst[::-1] # Reverse order
         # x = rearrange(x, 'b d l -> b l d')
         # x = self.convblocks(x)
         # x = rearrange(x, 'b l d -> b d l')
