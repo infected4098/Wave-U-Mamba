@@ -10,6 +10,7 @@ class Permute(nn.Module):
 
 class LayerNorm(nn.Module):
     # input data shape : [B, C, L]
+
     def __init__(self, features, dims):
         super(LayerNorm, self).__init__()
         self.dims = dims
@@ -17,7 +18,7 @@ class LayerNorm(nn.Module):
         self.permute = Permute(self.dims)
         self.layernorm = nn.LayerNorm(self.features)
     def forward(self, x):
-        x = self.permute(x)
-        x = self.layernorm(x)
-        x = self.permute(x)
+        x = self.permute(x) # [B, L, C]
+        x = self.layernorm(x) # [B, L, C]
+        x = self.permute(x) # [B, C, L]
         return x
