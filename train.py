@@ -1,3 +1,5 @@
+# This training code is for a multi-GPU scheme. Please change the code if you want to train the model in a single-GPU environment. 
+
 import warnings
 from env import AttrDict, build_env
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -23,6 +25,7 @@ from datetime import timedelta
 torch.backends.cudnn.benchmark = True
 # os.environ["TORCH_DISTRIBUTED_DEBUG"] = "DETAIL" # For debugging
 
+# https://github.com/csteinmetz1/auraloss
 loss_fn = auraloss.freq.MultiResolutionSTFTLoss(
     fft_sizes=[1024, 2048, 8192],
     hop_sizes=[256, 512, 2048],
@@ -102,10 +105,12 @@ def train(rank, cfg, a):
 
     #Checkpoints checking
     cp_g, cp_do = None, None
+
+    # Summarizing models
     if rank == 0:
-        print(summarize_model(generator, [4, 1, 25600], is_cuda = True))
-        print(summarize_model(mpd, [[4, 1, 25600], [4, 1, 25600]], is_cuda = True, is_bi = True))
-        print(summarize_model(msd, [[4, 1, 25600],[4, 1, 25600]], is_cuda = True, is_bi = True))
+        print(summarize_model(generator, [2, 1, 25600], is_cuda = True))
+        print(summarize_model(mpd, [[2, 1, 25600], [2, 1, 25600]], is_cuda = True, is_bi = True))
+        print(summarize_model(msd, [[2, 1, 25600],[2, 1, 25600]], is_cuda = True, is_bi = True))
 
         os.makedirs(f"{a.ckpt_path}", exist_ok=True)
         print("checkpoints directory : ", f"{a.ckpt_path}")
@@ -138,6 +143,7 @@ def train(rank, cfg, a):
     scheduler_g_warmup = WarmupScheduler(optim_g, warmup_steps=5, base_lr=cfg.train["lr"])
     scheduler_d_warmup = WarmupScheduler(optim_d, warmup_steps=5, base_lr=cfg.train["lr"])
 
+    # Exponential weight decay
     scheduler_g_decay = torch.optim.lr_scheduler.ExponentialLR(optim_g, gamma=cfg.train["weight_decay"], last_epoch=last_epoch)
     scheduler_d_decay = torch.optim.lr_scheduler.ExponentialLR(optim_d, gamma=cfg.train["weight_decay"], last_epoch=last_epoch)
 
@@ -148,6 +154,7 @@ def train(rank, cfg, a):
     mpd.train()
     msd.train()
     early_stopping = False
+    # https://github.com/jik876/hifi-gan/blob/master/train.py
     for epoch in range(max(0, last_epoch), cfg.train["n_epoch"]):
         if rank == 0:
             start = time.time()
@@ -174,6 +181,7 @@ def train(rank, cfg, a):
                 y_g_hat_mel = torch.from_numpy(mel_spectrogram(y_g_hat.squeeze(1), cfg.audio["nfft"], cfg.audio["n_mels"], cfg.audio["sr"], cfg.audio["hop"],
                                        cfg.audio["window_size"], cfg.audio["fmin"], cfg.audio["fmax_for_loss"]))
             except:
+                # For debugging
                 print("error point is: ", y_g_hat_mel.shape)
                 nan_mask = torch.isnan(y_g_hat)
                 nan_indices = torch.nonzero(nan_mask)
@@ -194,11 +202,12 @@ def train(rank, cfg, a):
             loss_mel = F.l1_loss(y_mel, y_g_hat_mel) * 45
             y_df_hat_r, y_df_hat_g, fmap_f_r, fmap_f_g = mpd(y_high, y_g_hat)
             y_ds_hat_r, y_ds_hat_g, fmap_s_r, fmap_s_g = msd(y_high, y_g_hat)
-            loss_fm_f = feature_loss(fmap_f_r, fmap_f_g)
-            loss_fm_s = feature_loss(fmap_s_r, fmap_s_g)
+            #loss_fm_f = feature_loss(fmap_f_r, fmap_f_g)
+            #loss_fm_s = feature_loss(fmap_s_r, fmap_s_g)
             loss_gen_f, losses_gen_f = generator_loss(y_df_hat_g)
             loss_gen_s, losses_gen_s = generator_loss(y_ds_hat_g)
-            loss_gen_all = loss_gen_s + loss_gen_f + loss_fm_s + loss_fm_f + loss_mel + loss_mstft
+            #loss_gen_all = loss_gen_s + loss_gen_f + loss_fm_s + loss_fm_f + loss_mel + loss_mstft
+            loss_gen_all = loss_gen_s + loss_gen_f + loss_mel + loss_mstft
             loss_gen_all.backward()
             torch.nn.utils.clip_grad_norm_(generator.parameters(), max_norm=3.0)
             optim_g.step()
@@ -239,11 +248,10 @@ def train(rank, cfg, a):
                     wandb.log({"training/msd_error": loss_disc_s, "steps": steps})
                     wandb.log({"training/generator_mpd_error": loss_gen_f, "steps": steps})
                     wandb.log({"training/generator_msd_error": loss_gen_s, "steps": steps})
-                    wandb.log({"training/generator_feature_error": loss_fm_f, "steps": steps})
 
 
                 # Validation
-                if steps % (cfg.train["validation_interval"]) == 0 and steps != 0:  # Validation every 2000 steps (Approx. 2.5 epochs)
+                if steps % (cfg.train["validation_interval"]) == 0 and steps != 0:  # Validation every 2000 steps (Approx. 2.5 epochs in batch size of 64)
                     generator.eval()
                     torch.cuda.empty_cache()
                     val_err_tot = 0
@@ -316,7 +324,7 @@ def train(rank, cfg, a):
                         wandb.log({f"ground truth low mel in epoch {epoch}": gt_low_mel})
                         wandb.log({f"predicted mel in epoch {epoch}": pred_mel})
 
-
+                        # Early stopping to prevent overfitting
                         if val_err < init_err:
                             early_stopping_count = 0
                             init_err = val_err
