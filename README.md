@@ -43,17 +43,19 @@ python inference_wav.py --wav_path [Low-Resolution wav path] \
 --cfgs_path [cfgs file path]
 ```
 
-## Inference Demos
+## Inference Pipelines
 
 We provide a [colab demo](https://colab.research.google.com/drive/11pGqWla4RVtZVAmdEJwKsrparnl4LVW4?usp=sharing) to show how the inference process works in a nutshell.
 
+## Demos
+
+You can listen to some of the generated samples [here](https://infected4098.github.io/waveumambademo/).
 
 ## Acknowledgements
 We especially thank [Sungbin Lim](https://www.sungbin-lim.net/) for sharing valuable insights and ideas on the draft. We referred to [HiFi-GAN](https://github.com/jik876/hifi-gan), [Mamba](https://github.com/state-spaces/mamba) and many other resources to implement this. 
 
 ## To-do
 
-1. Add demo website.
-2. Provide codes for training.
-3. Build an API.
+1. Provide pipelines for training.
+2. Build an API for interactive inference and utilization.
 
