@@ -59,3 +59,15 @@ We especially thank [Sungbin Lim](https://www.sungbin-lim.net/) for sharing valu
 1. Provide pipelines for training.
 2. Build an API for interactive inference and utilization.
 
+## Citation
+
+If you find this code useful in your research, please consider citing our paper:
+
+```python
+@article{lee2024waveumambaendtoendframeworkhighquality,
+      title={Wave-U-Mamba: An End-To-End Framework For High-Quality And Efficient Speech Super Resolution}, 
+      author={Yongjoon Lee and Chanwoo Kim},
+      year={2024},
+      journal={arXiv preprint arXiv:2409.09337}}
+```
+
