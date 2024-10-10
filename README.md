@@ -46,6 +46,7 @@ python inference_wav.py --wav_path [Low-Resolution wav path] \
 ## Inference Pipelines
 
 We provide a [colab demo](https://colab.research.google.com/drive/11pGqWla4RVtZVAmdEJwKsrparnl4LVW4?usp=sharing) to show how the inference process works in a nutshell.
+If you are not using CUDA or any relevant device compatible with [official implementation of Mamba](https://github.com/state-spaces/mamba), you can use [alternative codes](https://github.com/alxndrTL/mamba.py) to implement this. 
 
 ## Demos
 
