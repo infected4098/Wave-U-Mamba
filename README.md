@@ -1,4 +1,4 @@
-# Wave-U-Mamba
+# Wave-U-Mamba (ICASSP 2025)
 
 ### Yongjoon Lee, Chanwoo Kim
 
