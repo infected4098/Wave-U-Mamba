@@ -379,7 +379,7 @@ def main():
     parser.add_argument('--ckpt_path', default="train_ckpt_path")
 
     a = parser.parse_args()
-    with open("/mamba_super_1/lib/python3.11/configs/cfgs.json", "r") as file:
+    with open("cfgs.json", "r") as file:
 
         json_config = json.load(file)
         hyperparameters = AttrDict(json_config)
