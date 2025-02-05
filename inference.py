@@ -54,12 +54,12 @@ def scan_checkpoint(cp_dir, prefix):
         return ''
     return sorted(cp_list)[-1]
 
-with open("/mamba_super_1/lib/python3.11/configs/cfgs.json", "r") as file:
+with open("cfgs.json", "r") as file:
     json_config = json.load(file)
     cfg = AttrDict(json_config)
 ckpt_waveumamba = "your_checkpoint_path"
 
-val_names = "/mamba_super_1/lib/python3.11/dataset_names/val-files.txt"
+val_names = "val-files.txt"
 output_dir = cfg.data["etc_save_path"]
 device = torch.device("cuda")
 #checkpoint = prefix_load_checkpoint(ckpt_path, device)
@@ -91,7 +91,7 @@ def lsd(est ,target):
 def inference(a, count = 5, type = 1):
     global device
     setup(0, 8)
-    wandb.init(project="inference_waveumamba_tiny_30000")
+    wandb.init(project="project_name")
     wandb.require("core")
     random.seed(cfg.info["seed"])
     #global cfg
@@ -219,7 +219,7 @@ def main():
     parser.add_argument('--checkpoint_file', default = 'your_checkpoint_path')
     a = parser.parse_args()
 
-    with open("/mamba_super_1/lib/python3.11/configs/cfgs.json", "r") as file:
+    with open("cfgs.json", "r") as file:
 
         json_config = json.load(file)
         h = AttrDict(json_config)
