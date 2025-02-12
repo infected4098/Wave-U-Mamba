@@ -65,10 +65,15 @@ We especially thank [Sungbin Lim](https://www.sungbin-lim.net/) for sharing valu
 If you find this code useful in your research, please consider citing our paper:
 
 ```python
-@article{lee2024waveumambaendtoendframeworkhighquality,
-      title={Wave-U-Mamba: An End-To-End Framework For High-Quality And Efficient Speech Super Resolution}, 
-      author={Yongjoon Lee and Chanwoo Kim},
-      year={2024},
-      journal={arXiv preprint arXiv:2409.09337}}
+
+@inproceedings{lee2024waveumambaendtoendframeworkhighquality,
+  author    = {Yongjoon Lee and Chanwoo Kim},
+  title     = {Wave-U-Mamba: An End-To-End Framework For High-Quality And Efficient Speech Super Resolution},
+  booktitle = {Proceedings of the 2025 IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP)},
+  year      = {2025},
+  address   = {Hyderabad, India},
+  month     = {April},
+  publisher = {IEEE}
+}
 ```
 
