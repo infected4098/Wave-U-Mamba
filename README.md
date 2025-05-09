@@ -27,8 +27,7 @@ pip install -r requirements.txt
 
 ## Pretrained Model
 
-You can download the pretrained model we provide. <br/>
-[Download pretrained models](https://drive.google.com/file/d/1ljUMQHWil5w8moupWkapqkUOcGNN4x3e/view?usp=sharing)<br/> 
+TBD
 
 ## Inference from wav file
 
@@ -43,9 +42,9 @@ python inference_wav.py --wav_path [Low-Resolution wav path] \
 --cfgs_path [cfgs file path]
 ```
 
-## Inference Pipelines
+## Inference Pipelines (TBD)
 
-We provide a [colab demo](https://colab.research.google.com/drive/11pGqWla4RVtZVAmdEJwKsrparnl4LVW4?usp=sharing) to show how the inference process works in a nutshell.
+We provide a [colab demo]() to show how the inference process works in a nutshell.
 If you are not using CUDA or any relevant device compatible with [official implementation of Mamba](https://github.com/state-spaces/mamba), you can use [alternative codes](https://github.com/alxndrTL/mamba.py) to implement this. 
 
 ## Demos
