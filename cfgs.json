@@ -1,4 +1,4 @@
-
+{
 "info": {
   "project_name": "WaveUMamba",
   "initial_work": "2024/05/09",
@@ -6,7 +6,7 @@
   "seed": 1229},
 
 "train": {
-  "batch_size": 64,
+  "batch_size": 32,
   "lr": 0.0002,
   "weight_decay": 0.999,
   "num_workers": 8,
@@ -14,22 +14,22 @@
   "opt_eps": 1e-9,
   "beta1": 0.6,
   "beta2": 0.99,
-  "n_epoch": 25,
-  "checkpoint_interval": 2000,
-  "summary_interval": 100,
-  "validation_interval": 2000,
-  "early_stopping_max" : 3,
-  "stdout_interval": 100},
+  "n_epoch": 100,
+  "checkpoint_interval": 20000,
+  "summary_interval": 1000,
+  "validation_interval": 20000,
+  "early_stopping_max" : 5,
+  "stdout_interval": 1000},
 
   "data" : {
-    "dir": "/mamba_super_1/lib/python3.11",
+    "dir": "/",
     "format": "*mic1.pt",
-    "train_names": "/train-files.txt",
-    "val_names": "/dataset_names/val-files.txt",
-    "example_audio": "/VCTK-Corpus/wav48/p228/p228_003.wav",
+    "train_names": "/multispeaker/train-files.txt",
+    "val_names": "/multispeaker/val-files.txt",
+    "example_audio": "/VCTK-corpus/wav48/p228/p228_003.wav",
     "vis_save_path": "/imgs",
-    "ckpt_save_path": "/ckpts_ext",
-    "models_save_path": "/models",
+    "ckpt_save_path": "./Wave-U-Mamba/ckpts_ext",
+    "models_save_path": "./Wave-U-Mamba/models",
     "tensorboard_save_path": "/tensorboard",
     "etc_save_path": "/etc"
   },
@@ -41,7 +41,7 @@
     "n_mels": 80,
     "window_size": 1024,
     "fmax_for_loss": null,
-    "fmax": 8000,
+    "fmax": 24000,
     "fmin": 0,
     "hop": 512,
     "UPR": [2, 3, 4, 6, 8, 12],
