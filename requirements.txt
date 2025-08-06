@@ -8,3 +8,4 @@ tqdm
 einops
 argparse
 fvcore
+matplotlib
