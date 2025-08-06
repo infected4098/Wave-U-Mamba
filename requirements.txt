@@ -1,4 +1,6 @@
 torch
+torchaudio
+auraloss
 librosa
 numpy
 scipy
