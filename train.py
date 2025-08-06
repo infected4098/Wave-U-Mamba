@@ -16,8 +16,9 @@ from torch.utils.data import DistributedSampler, DataLoader
 import torch.multiprocessing as mp
 from torch.distributed import init_process_group
 from torch.nn.parallel import DistributedDataParallel
-from data.dataset import VCTKMultiSpkDataset
+from dataset import VCTKMultiSpkDataset
 from modules.waveumamba import waveumamba
+from modules.discriminator import MultiPeriodDiscriminator, MultiScaleDiscriminator, generator_loss, discriminator_loss, feature_loss
 import auraloss
 from utils import scan_checkpoint, load_checkpoint, save_checkpoint, mel_spectrogram, summarize_model
 import wandb
