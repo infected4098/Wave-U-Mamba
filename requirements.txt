@@ -6,6 +6,5 @@ torchinfo
 wandb
 tqdm
 einops
-mamba_ssm
 argparse
 fvcore
