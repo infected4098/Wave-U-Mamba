@@ -64,7 +64,7 @@ class DiscriminatorP(torch.nn.Module):
             norm_f(Conv2d(int(512*self.d_mult), int(1024*self.d_mult), (kernel_size, 1), (stride, 1), padding=(get_padding(5, 1), 0))),
             norm_f(Conv2d(int(1024*self.d_mult), int(1024*self.d_mult), (kernel_size, 1), 1, padding=(2, 0))),
         ])
-        self.conv_post = norm_f(Conv2d(int(1024*self.d_mult), 3, (3, 1), 1, padding=(1, 0)))
+        self.conv_post = norm_f(Conv2d(int(1024*self.d_mult), 1, (3, 1), 1, padding=(1, 0)))
 
     def forward(self, x):
         fmap = []
@@ -83,7 +83,7 @@ class DiscriminatorP(torch.nn.Module):
             fmap.append(x)
         x = self.conv_post(x)
         fmap.append(x)
-        x = torch.flatten(x, 2, -1)
+        x = torch.flatten(x, 1, -1)
 
         return x, fmap
 
@@ -179,7 +179,7 @@ class DiscriminatorR(nn.Module):
             ]
         )
         self.conv_post = norm_f(
-            nn.Conv2d(int(32 * self.d_mult), 3, (3, 3), padding=(1, 1))
+            nn.Conv2d(int(32 * self.d_mult), 1, (3, 3), padding=(1, 1))
         )
         self.device = device
     def forward(self,x: torch.Tensor) -> Tuple[torch.Tensor, List[torch.Tensor]]:
@@ -193,7 +193,7 @@ class DiscriminatorR(nn.Module):
             fmap.append(x)
         x = self.conv_post(x)
         fmap.append(x)
-        x = torch.flatten(x, 2, -1)
+        x = torch.flatten(x, 1, -1)
 
         return x, fmap
 
