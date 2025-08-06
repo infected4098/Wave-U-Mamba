@@ -24,6 +24,7 @@ cd Wave-U-Mamba
 ```
 pip install -r requirements.txt
 ```
+4. Install Mamba. Please check [the official website](https://github.com/state-spaces/mamba).
 5. Download config file. Please check [cfgs](cfgs.json).
 6. Download the pretrained model. 
 
