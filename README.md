@@ -1,4 +1,4 @@
-# Wave-U-Mamba (ICASSP 2025)  (This repository is currently in repairment due to the lost pt file. Thank you.)
+# Wave-U-Mamba (ICASSP 2025) 
 
 ### Yongjoon Lee, Chanwoo Kim*
 
