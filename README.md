@@ -18,18 +18,12 @@ Speech Super-Resolution (SSR) is a task of enhancing low-resolution speech signa
 git clone https://github.com/infected4098/Wave-U-Mamba.git
 cd Wave-U-Mamba
 ```
-3. Install python requirements. Please check [requirements.txt](requirements.txt).
+2. Install python requirements. Please check [requirements.txt](requirements.txt).
 ```
 pip install -r requirements.txt
 ```
-4. Install Mamba. Please check [the official website](https://github.com/state-spaces/mamba).
-5. Download config file. Please check [cfgs](cfgs.json).
-6. Download the pretrained model. 
-
-
-## Pretrained Model
-
-TBD
+3. Install Mamba. Please check [the official website](https://github.com/state-spaces/mamba).
+4. Download config file. Please check [cfgs](cfgs.json).
 
 ## Inference from wav file
 
@@ -40,7 +34,7 @@ TBD
 ```
 python inference_wav.py --wav_path [Low-Resolution wav path] \
 --output_dir [Folder to save the HR audio wav files] \
---checkpoint_file [Downloaded pretrained model file path] \
+--checkpoint_file [model file path] \
 --cfgs_path [cfgs file path]
 ```
 
