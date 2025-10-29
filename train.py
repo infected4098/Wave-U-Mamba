@@ -17,7 +17,7 @@ import torch.multiprocessing as mp
 from torch.distributed import init_process_group
 from torch.nn.parallel import DistributedDataParallel
 from dataset import VCTKMultiSpkDataset
-from modules.waveumamba import waveumamba
+from modules.waveumamba import WaveUmamba
 from modules.discriminator import MultiPeriodDiscriminator, MultiScaleDiscriminator, generator_loss, discriminator_loss, feature_loss
 import auraloss
 from utils import scan_checkpoint, load_checkpoint, save_checkpoint, mel_spectrogram, summarize_model
@@ -97,7 +97,7 @@ def train(rank, cfg, a):
                                        drop_last=True)
 
     # Model DDP
-    generator = waveumamba(cfg.mamba).to(device)
+    generator = WaveUmamba(cfg.mamba).to(device)
     mpd = MultiPeriodDiscriminator().to(device)
     msd = MultiScaleDiscriminator().to(device)
     generator = DistributedDataParallel(module = generator, device_ids = [rank], find_unused_parameters=False).to(device) # find_unused_parameters=True when debugging
