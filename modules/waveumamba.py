@@ -223,9 +223,9 @@ class Downsamplestem(nn.Module):
         return x, res_lst[:-1] # no skip connection for the shortest cut.
 
 
-class waveumamba(nn.Module):
+class WaveUmamba(nn.Module):
     def __init__(self, cfg_mamba):  # (B, C, T)
-        super(waveumamba, self).__init__()
+        super(WaveUmamba, self).__init__()
 
         # Downsampling
         self.num_kernels = len([3])
